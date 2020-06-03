@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
-import UserController from './controllers/UserController';
-import SessionController from './controllers/SessionController';
+const UserController = require('./controllers/UserController');
+const SessionController = require('./controllers/SessionController');
 
 const router = Router();
 

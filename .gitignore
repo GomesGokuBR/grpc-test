@@ -26,6 +26,8 @@ npm-debug.log*
 /coverage
 /dist
 /api/node_modules
+/hydra/node_modules
+/nix/node_modules
 /platforms
 /plugins
 /www
