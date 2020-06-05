@@ -1,16 +1,21 @@
-const { promisify } = require('util');
-
 const HydraService = require('../services/hydra');
-
-const loginUser = promisify(HydraService.loginUser);
 
 class SessionController {
     async store(req, res) {
         const { email, password } = req.body;
 
-        const response = await promisify(HydraService.loginUser({ email, password }));
+        const response = await new Promise((resolve, reject) => {
+            HydraService.loginUser({user: { email, password } }, (err, res) => {
+                if (err) {
+                    console.error('Error', err);
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
 
-        return res.json(response);
+        return res.send(response);
     }
 }
 

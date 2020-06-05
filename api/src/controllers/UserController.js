@@ -1,15 +1,37 @@
+const HydraService = require('../services/hydra');
+
 class UserController {
     async show(req, res) {
-        const user = {};
+        const { id } = req.params;
 
-        return user;
+        const response = await new Promise((resolve, reject) => {
+            HydraService.getUserbyId({ id }, (err, res) => {
+                if (err) {
+                    console.log('UserController err show', err);
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+        res.send(response);
     }
 
     async store(req, res) {
-        const user = {};
+        const { email, username, password } = req.body;
 
-        return user;
+        const response = await new Promise((resolve, reject) => {
+            HydraService.registerUser({user: { email, username, password }}, (err, res) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+
+        return res.send(response);
     }
 }
 
-module.export = UserController;
+module.exports = new UserController();
